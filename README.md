@@ -12,8 +12,11 @@
   </tr>
   <tr>
     <td>언어</td>
-    <td><img src="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=openjdk&logoColor=white"> 
-    </td>
+    <td><img src="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=openjdk&logoColor=white"></td>
+  </tr>
+  <tr>
+    <td>정기 모임 (아직 변동 가능)</td>
+    <td>매주 수요일 아침 8시</td>
   </tr>
 </table>
 
@@ -61,7 +64,7 @@
 <br />
 
 ### 🤝 Rule  
-1. 3문제 이상 꼭 풀기!
+1. 3문제 이상 꼭 풀기! (미루다 몰아서 하지 않기)
 2. 가능 하면 4문제 다 풀어보기!
 3. 매주 정기 스터디 1번 필참해주세요.
 
