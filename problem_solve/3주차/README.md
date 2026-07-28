@@ -2,8 +2,7 @@
 
 ## 문제 목록
 
-- [Easy] [암호 생성기](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14uWl6AF0CFAYD)
-- [Easy] [괄호 짝짓기](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14eWb6AAkCFAYD)
-- [Normal] [힙](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV-Tj7ya3jYDFAXr)
-- [Normal] [쇠막대기 자르기](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWVl47b6DGMDFAXm)
-- [Hard] [보급로](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV15QRX6APsCFAYD)
+[Easy] [올바른 괄호](https://school.programmers.co.kr/learn/courses/30/lessons/12909)  
+[Easy] [최댓값과 최솟값](https://school.programmers.co.kr/learn/courses/30/lessons/12939)  
+[Normal] [네트워크](https://school.programmers.co.kr/learn/courses/30/lessons/43162)  
+[Hard] [도둑질](https://school.programmers.co.kr/learn/courses/30/lessons/42897)  
