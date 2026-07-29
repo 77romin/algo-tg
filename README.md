@@ -132,7 +132,8 @@ problem_solve/{날짜 또는 회차}/{[문제출처] 문제이름}/{GitHub 사�
 
 ## 🗃️참고 자료
 
-[STS 단축키](https://app.notion.com/p/STS-hotkey-3a68266725fc8016a825d1ac32320086?source=copy_link)
+[Java 코테를 위한 문법들](https://app.notion.com/p/Java-3ac8266725fc801c8d82e984b35b9afa?source=copy_link)  
+[STS 단축키](https://app.notion.com/p/STS-hotkey-3a68266725fc8016a825d1ac32320086?source=copy_link)  
 
 <br/>
 
