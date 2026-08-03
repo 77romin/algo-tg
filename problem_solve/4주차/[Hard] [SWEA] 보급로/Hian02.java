@@ -5,15 +5,14 @@ import java.util.PriorityQueue;
 
 public class Solution {
     public static void main(String[] args) throws Exception {
-        BufferedReader br =
-                new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int T = Integer.parseInt(br.readLine());
 
         int[] dr = {-1, 1, 0, 0};
         int[] dc = {0, 0, -1, 1};
 
-        for (int testCase = 1; testCase <= T; testCase++) {
+        for (int T = 1; T <= T; T++) {
             int N = Integer.parseInt(br.readLine());
 
             int[][] map = new int[N][N];
@@ -33,8 +32,7 @@ public class Solution {
             }
 
             // {현재까지의 복구 시간, 행, 열}
-            PriorityQueue<int[]> pq =
-                    new PriorityQueue<>((a, b) -> a[0] - b[0]);
+            PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
 
             distance[0][0] = 0;
             pq.offer(new int[]{0, 0, 0});
@@ -65,8 +63,7 @@ public class Solution {
                         continue;
                     }
 
-                    int nextCost =
-                            currentCost + map[nextRow][nextCol];
+                    int nextCost = currentCost + map[nextRow][nextCol];
 
                     if (nextCost < distance[nextRow][nextCol]) {
                         distance[nextRow][nextCol] = nextCost;
@@ -81,7 +78,7 @@ public class Solution {
             }
 
             System.out.println(
-                    "#" + testCase + " " + distance[N - 1][N - 1]
+                    "#" + T + " " + distance[N - 1][N - 1]
             );
         }
     }
