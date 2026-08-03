@@ -37,6 +37,7 @@ class Solution {
 
                 if (cur.i == N - 1 && cur.j == N - 1) {
                     ans = cur.cost;
+                    break;
                 }
 
                 for (int d = 0; d < 4; d++) {
