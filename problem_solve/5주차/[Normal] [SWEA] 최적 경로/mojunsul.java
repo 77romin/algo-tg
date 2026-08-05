@@ -51,6 +51,8 @@ public class Solution {
             ans = Math.min(ans, distSum + dist[cur][1]); // 지금까지 순회한 거리 + 현재지점에서 도착점 까지의 거리
             return;
         }
+        
+        if(distSum > ans) return;
 
         for (int next = 2; next < size; next++) {
             if(!isVisited[next]){
