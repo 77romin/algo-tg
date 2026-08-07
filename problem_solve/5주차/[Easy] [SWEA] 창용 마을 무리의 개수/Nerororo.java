@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 //import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 class Solution
 {
@@ -28,7 +26,6 @@ class Solution
             int M = Integer.parseInt(st.nextToken());
 
             parent = new int[N + 1];
-            // 초기 세팅
             for (int i = 1; i <= N; i++) {
                 parent[i] = i;
             }
@@ -39,7 +36,6 @@ class Solution
                 union(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
             }
 
-            // 총 개수 세기
             sb.append(countSet(N)).append('\n');
         }
 
@@ -47,14 +43,12 @@ class Solution
     }
 
     public static int countSet(int n) {
-        List<Integer> list = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
         for (int i = 1; i <= n; i++) {
             int num = find(i);
-            if (!list.contains(num)) {
-                list.add(num);
-            }
+            set.add(num);
         }
-        return list.size();
+        return set.size();
     }
 
     public static void union(int a, int b) {
