@@ -54,7 +54,6 @@ class skyblue123 {
             }
 
             for (int d = 0; d < 4; d++) {
-
                 int nr = cur.r + delta[d][0];
                 int nc = cur.c + delta[d][1];
 
