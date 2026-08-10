@@ -26,10 +26,7 @@ class Solution {
             int nx = dx[dir];
             int ny = dy[dir];
 
-            if (nx >= 0 && nx < n &&
-                ny >= 0 && ny < n &&
-                board[nx][ny] == 0) {
-
+            if (nx >= 0 && nx < n && ny >= 0 && ny < n && board[nx][ny] == 0) {
                 cost[nx][ny][dir] = 100;
                 pq.offer(new int[]{100, nx, ny, dir});
             }
@@ -68,9 +65,7 @@ class Solution {
 
                 if (nextCost < cost[nx][ny][nextDir]) {
                     cost[nx][ny][nextDir] = nextCost;
-                    pq.offer(new int[]{
-                        nextCost, nx, ny, nextDir
-                    });
+                    pq.offer(new int[]{nextCost, nx, ny, nextDir});
                 }
             }
         }
@@ -78,10 +73,7 @@ class Solution {
         int answer = Integer.MAX_VALUE;
 
         for (int dir = 0; dir < 4; dir++) {
-            answer = Math.min(
-                answer,
-                cost[n - 1][n - 1][dir]
-            );
+            answer = Math.min(answer,cost[n - 1][n - 1][dir]);
         }
 
         return answer;
