@@ -18,8 +18,7 @@ class Solution {
         }
 
         // {비용, x, y, 방향}
-        PriorityQueue<int[]> pq =
-                new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
 
         // 출발점에서는 아직 방향이 없으므로
         // 가능한 첫 이동을 직접 넣음
