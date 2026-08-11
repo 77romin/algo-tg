@@ -29,10 +29,10 @@ DAILY_BLOCK_PATTERN = re.compile(
     re.MULTILINE,
 )
 
-# [Easy], [Normal], [Hard], [Level 1] 등 다양한 레벨 태그 및 불릿 기호 지원
+# [Easy], [Normal], [Hard], [Extreme], [Level 1] 등 다양한 레벨 태그 및 불릿 기호 지원
 MARKDOWN_LINK_PATTERN = re.compile(
     r"^(?:[-*]\s*)?"
-    r"(?:\[(?P<level>Easy|Normal|Hard|Level\s*\d+)\]\s*)?"
+    r"(?:\[(?P<level>Easy|Normal|Hard|Extreme|Level\s*\d+)\]\s*)?"
     r"\[(?P<title>.+?)\]\((?P<url>.+?)\)\s*$",
     re.IGNORECASE
 )
