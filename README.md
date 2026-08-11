@@ -52,15 +52,15 @@
 
 <!-- 이 부분을 업데이트하면 자동으로 파일이 생성됩니다. -->
 <!-- provlem_solve/{일자}/{스터디멤버 깃헙 id} 형태로 생성됩니다.  -->
-### 📝💯 5주차 문제
+### 📝💯 6주차 문제
 
 <!-- 이 제목과 문제 링크를 수정해 `main` 브랜치에 push하면 `problem_solve/` 하위에 폴더 자동 생성 -->
 
-[Easy] [창용 마을 무리의 개수](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWngfZVa9XwDFAQU)  
-[Normal] [순위](https://school.programmers.co.kr/learn/courses/30/lessons/49191)  
-[Normal] [최적 경로](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV15OZ4qAPICFAYD)  
-[Hard] [등산로 조성](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PoOKKAPIDFAUq)  
-[Hard] [경주로 건설](https://school.programmers.co.kr/learn/courses/30/lessons/67259)  
+[Normal] [배달](https://school.programmers.co.kr/learn/courses/30/lessons/12978)  
+[Hard] [인수의 생일 파티](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV4xuqCqBeUDFAUx)  
+[Hard] [합승 택시 요금](https://school.programmers.co.kr/learn/courses/30/lessons/72413)  
+[Extreme] [이중 최단 경로 문제](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AYOCL0GaCF4DFATW)  
+
 <!-- 문제 바꾸면서 꼭!!!!!!!!! 몇 주차인지 수정하기!!!!!!!!!! -->
 <br />
 
