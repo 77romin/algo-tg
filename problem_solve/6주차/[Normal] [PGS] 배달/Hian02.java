@@ -11,6 +11,25 @@ N개의 마을 중에서 K 시간 이하로 배달이 가능한 마을에서만 
 1번 마을에서 i번 마을까지 가는 최소 시간을 각각 구해서 저장해보자.
 
 다익스트라 알고리즘 쓰자
+*/
 
+/* 
+문제 풀이
+*/
+
+import java.util.*;
+
+class Solution {
+    public int solution(int N, int[][] road, int K) {
+
+        int answer = 0;
+
+      
+
+        return answer;
+    }
+}
+
+/* 
 
 */
