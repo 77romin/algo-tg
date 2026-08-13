@@ -33,9 +33,10 @@ class Solution {
     }
 
     private void initGraph(int N, int[][] road) {
-        graph = new ArrayList<>();
-        for (int i = 0; i <= N; i++) {
-            graph.add(new ArrayList<>());
+        //최소 비용 간선만 사용하도록 개선
+        int[][] minRoad = new int[N + 1][N + 1];
+        for (int i = 1; i <= N; i++) {
+            Arrays.fill(minRoad[i], INF);
         }
 
         for (int[] r : road) {
@@ -43,21 +44,37 @@ class Solution {
             int b = r[1];
             int w = r[2];
 
-            graph.get(a).add(new Node(b, w));
-            graph.get(b).add(new Node(a, w));
+            if (w < minRoad[a][b]) {
+                minRoad[a][b] = w;
+                minRoad[b][a] = w;
+            }
+        }
+
+        graph = new ArrayList<>();
+        for (int i = 0; i <= N; i++) {
+            graph.add(new ArrayList<>());
+        }
+
+        // 최솟값으로 정제된 간선만 인접 리스트에 추가
+        for (int i = 1; i <= N; i++) {
+            for (int j = 1; j <= N; j++) {
+                if (minRoad[i][j] != INF) {
+                    graph.get(i).add(new Node(j, minRoad[i][j]));
+                }
+            }
         }
     }
 
     private int[] dijkstra(int N, int start) {
-        PriorityQueue<Node> pq = new PriorityQueue<>();
-        pq.offer(new Node(start, 0));
+        Deque<Node> queue = new ArrayDeque<>();
+        queue.offer(new Node(start, 0));
 
         int[] dist = new int[N + 1];
         Arrays.fill(dist, INF);
         dist[start] = 0;
 
-        while (!pq.isEmpty()) {
-            Node cur = pq.poll();
+        while (!queue.isEmpty()) {
+            Node cur = queue.poll();
 
             if (cur.dist > dist[cur.to]) continue;
 
@@ -65,7 +82,7 @@ class Solution {
                 int distSum = cur.dist + next.dist;
                 if (dist[next.to] > distSum) {
                     dist[next.to] = distSum;
-                    pq.offer(new Node(next.to, distSum));
+                    queue.offer(new Node(next.to, distSum));
                 }
             }
         }
@@ -73,4 +90,5 @@ class Solution {
         return dist;
     }
 }
-// 시간복잡도 O((V+E)log(V))
+
+// 시간 복잡도 E log(V)
