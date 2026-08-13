@@ -73,4 +73,4 @@ class Solution {
         return dist;
     }
 }
-// O(n) = (V+E)*log(V)
+// 시간복잡도 O((V+E)log(V))
