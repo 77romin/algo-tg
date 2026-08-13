@@ -115,4 +115,4 @@ public class Solution {
     }
 }
 
-// 시간복잡도 O((V+E)log(V))
+// 시간복잡도 O(E log(V))
