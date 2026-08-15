@@ -33,7 +33,6 @@ class Solution {
     }
 
     private void initGraph(int N, int[][] road) {
-        //최소 비용 간선만 사용하도록 개선
         int[][] minRoad = new int[N + 1][N + 1];
         for (int i = 1; i <= N; i++) {
             Arrays.fill(minRoad[i], INF);
@@ -66,15 +65,15 @@ class Solution {
     }
 
     private int[] dijkstra(int N, int start) {
-        Deque<Node> queue = new ArrayDeque<>();
-        queue.offer(new Node(start, 0));
+        PriorityQueue<Node> pq = new PriorityQueue<>();
+        pq.offer(new Node(start, 0));
 
         int[] dist = new int[N + 1];
         Arrays.fill(dist, INF);
         dist[start] = 0;
 
-        while (!queue.isEmpty()) {
-            Node cur = queue.poll();
+        while (!pq.isEmpty()) {
+            Node cur = pq.poll();
 
             if (cur.dist > dist[cur.to]) continue;
 
@@ -82,7 +81,7 @@ class Solution {
                 int distSum = cur.dist + next.dist;
                 if (dist[next.to] > distSum) {
                     dist[next.to] = distSum;
-                    queue.offer(new Node(next.to, distSum));
+                    pq.offer(new Node(next.to, distSum));
                 }
             }
         }
@@ -90,5 +89,4 @@ class Solution {
         return dist;
     }
 }
-
-// 시간 복잡도 O(E log(V) + V^2)
+// 시간복잡도 O(V^2 + E log(V))
