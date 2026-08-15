@@ -1,10 +1,50 @@
 class Solution {
+    private int n; // N: num of Viallages
+    private int k; // K: hour to be possible to deliver
+    private int[][] cost;
+    private int pCnt;
+    private boolean[] counted; // already counted village including pCnt
+    
     public int solution(int N, int[][] road, int K) {
-        int answer = 0;
-
-        // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-        System.out.println("Hello Java");
-
-        return answer;
+        init(N, road, K); // initalization
+        deliver(1, 0); // village 1 is a first departure point
+        return pCnt;
+    }
+    
+    private void deliver(int cv, int sh) { // cv: current village, sh: sum of hours
+        if(sh>k) return;
+        
+        if(!counted[cv]) {
+            pCnt++;
+            counted[cv]=true;
+        }
+        
+        for(int nv=1; nv<=n; nv++)
+            if(cost[cv][nv]!=0)
+                deliver(nv, sh+cost[cv][nv]);
+    }
+    
+    private void init(int N, int[][] road, int K) { // Initialization
+        pCnt=0;
+        n=N;
+        k=K;
+        cost = new int[N+1][N+1];
+        counted = new boolean[N+1];
+        for(int i=0; i<road.length; i++)
+            wCost(road[i][0], road[i][1], road[i][2]);
+    }
+    
+    private void wCost(int v1, int v2, int h) { // write cost of hour
+        if(cost[v1][v2]==0) {
+            cost[v1][v2] = h;
+            cost[v2][v1] = h;
+        } else if(cost[v1][v2]>h) { // if it duplicate, update min cost
+            cost[v1][v2] = h;
+            cost[v2][v1] = h;
+        }
     }
 }
+
+/**
+ * failed test#27, #29, #31, #32 with Time overflow
+ */
