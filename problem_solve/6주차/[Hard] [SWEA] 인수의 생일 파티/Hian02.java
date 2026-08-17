@@ -35,4 +35,103 @@ distFromX[i] + distToX[i]이 가장 큰 값을 찾습니다.
 /*
 문제 풀이
 */
+import java.io.*;
+import java.util.*;
 
+public class Solution {
+    static int N;
+    // 다익스트라
+    static int[] dijkstra(ArrayList<int[]>[] graph, int start) {
+
+        int[] dist = new int[N + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        // {현재 노드, 현재까지 거리}
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        dist[start] = 0;
+        pq.offer(new int[]{start, 0});
+
+        while (!pq.isEmpty()) {
+            int[] current = pq.poll();
+            int now = current[0];
+            int cost = current[1];
+            // 이미 더 짧은 경로가 존재한다면 넘어감
+            if (cost > dist[now]) {
+                continue;
+            }
+
+            // 현재 노드와 연결된 도로 확인
+            for (int[] next : graph[now]) {
+                int nextNode = next[0];
+                int nextCost = cost + next[1];
+                // 더 짧은 경로를 발견한 경우
+                if (nextCost < dist[nextNode]) {
+                    dist[nextNode] = nextCost;
+                    pq.offer(new int[]{nextNode,nextCost});
+                }
+            }
+        }
+        return dist;
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());
+
+        for (int tc = 1; tc <= T; tc++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            N = Integer.parseInt(st.nextToken());
+            int M = Integer.parseInt(st.nextToken());
+            int X = Integer.parseInt(st.nextToken());
+            // 원래 방향 그래프
+            ArrayList<int[]>[] graph = new ArrayList[N + 1];
+            // 반대 방향 그래프
+            ArrayList<int[]>[] reverseGraph = new ArrayList[N + 1];
+          
+            for (int i = 1; i <= N; i++) {
+                graph[i] = new ArrayList<>();
+                reverseGraph[i] = new ArrayList<>();
+            }
+
+            // 도로 정보 입력
+            for (int i = 0; i < M; i++) {
+                st = new StringTokenizer(br.readLine());
+                int start = Integer.parseInt(st.nextToken());
+                int end = Integer.parseInt(st.nextToken());
+                int cost = Integer.parseInt(st.nextToken());
+
+                // 원래 방향
+                graph[start].add(new int[]{end,cost});
+                // 반대 방향
+                reverseGraph[end].add(new int[]{start,cost});
+            }
+
+            // X → 각 집
+            int[] distFromX = dijkstra(graph, X);
+            // 각 집 → X
+            // 역방향 그래프에서는 X → 각 집으로 바뀜
+            int[] distToX = dijkstra(reverseGraph, X);
+
+            int answer = 0;
+            // 각 집의 왕복 거리 계산
+            for (int i = 1; i <= N; i++) {
+                int total = distFromX[i] + distToX[i];
+                answer = Math.max(answer, total);
+            }
+            System.out.println("#" + tc + " " + answer);
+        }
+    }
+}
+
+
+/*
+시간복잡도
+
+N : 집의 개수
+M : 도로의 개수
+
+원래 그래프에서 다익스트라 1번
+역방향 그래프에서 다익스트라 1번
+
+O(2 × (N + M) log N)
+*/
