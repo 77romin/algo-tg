@@ -60,4 +60,5 @@ class Solution {
  * Case#1. S->K, K->A + K->B
  * Case#2. S->A, S->B
  * so, we can detect what is minimum fee in this 2 of cases.
+ * Time Complexity: O(N!)
  */

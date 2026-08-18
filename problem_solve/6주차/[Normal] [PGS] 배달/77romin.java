@@ -47,4 +47,5 @@ class Solution {
 
 /**
  * failed test#27, #29, #31, #32 with Time overflow
+ * Time Complexity: O(N!)
  */
