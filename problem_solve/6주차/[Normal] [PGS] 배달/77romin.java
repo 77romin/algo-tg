@@ -7,12 +7,19 @@ class Solution {
     
     public int solution(int N, int[][] road, int K) {
         init(N, road, K); // initalization
-        deliver(1, 0); // village 1 is a first departure point
+        int[] dist = new int[n+1];
+        for(int i=0; i<n+1; i++)
+            dist[i] = Integer.MAX_VALUE;
+        deliver(1, 0, dist); // village 1 is a first departure point
         return pCnt;
     }
     
-    private void deliver(int cv, int sh) { // cv: current village, sh: sum of hours
+    private void deliver(int cv, int sh, int[] dist) { // cv: current village, sh: sum of hours, visted: visited
         if(sh>k) return;
+        
+        if(sh>=dist[cv]) return;
+        
+        dist[cv] = sh;
         
         if(!counted[cv]) {
             pCnt++;
@@ -21,7 +28,7 @@ class Solution {
         
         for(int nv=1; nv<=n; nv++)
             if(cost[cv][nv]!=0)
-                deliver(nv, sh+cost[cv][nv]);
+                deliver(nv, sh+cost[cv][nv], dist);
     }
     
     private void init(int N, int[][] road, int K) { // Initialization
@@ -46,6 +53,6 @@ class Solution {
 }
 
 /**
- * failed test#27, #29, #31, #32 with Time overflow
- * Time Complexity: O(N!)
+ * dist 배열을 이용하여 이미 방문한 마을인지 확인하고, 방문한 마을이라면 더 적은 시간으로 도달할 수 있는지 확인한다.
+ * Time Complexity: O(n^2)
  */
