@@ -29,12 +29,12 @@ DAILY_BLOCK_PATTERN = re.compile(
     re.MULTILINE,
 )
 
-# [Easy], [Normal], [Hard], [Extreme], [Level 1] 등 다양한 레벨 태그 및 불릿 기호 지원
+# [Easy], [Normal], [Hard], [Extreme], [Pro], [Level 1] 등 다양한 레벨 태그 및 불릿 기호 지원
 MARKDOWN_LINK_PATTERN = re.compile(
     r"^(?:[-*]\s*)?"
-    r"(?:\[(?P<level>Easy|Normal|Hard|Extreme|Level\s*\d+)\]\s*)?"
+    r"(?:\[(?P<level>Easy|Normal|Hard|Extreme|Pro|Level\s*\d+)\]\s*)?"
     r"\[(?P<title>.+?)\]\((?P<url>.+?)\)\s*$",
-    re.IGNORECASE
+    re.IGNORECASE,
 )
 
 
@@ -68,7 +68,7 @@ def extract_daily_blocks(text: str) -> list[tuple[str, str]]:
 
 def extract_links(body: str) -> list[dict[str, str]]:
     links: list[dict[str, str]] = []
-    
+
     # 레벨이 지정되지 않았을 때 순차적으로 부여할 기본 순서
     fallback_levels = ["Easy", "Normal", "Hard"]
     valid_line_count = 0
@@ -84,7 +84,7 @@ def extract_links(body: str) -> list[dict[str, str]]:
             continue
 
         level = match.group("level")
-        
+
         # 명시된 level 태그가 없는 경우 처리
         if not level:
             if valid_line_count < len(fallback_levels):
@@ -93,23 +93,25 @@ def extract_links(body: str) -> list[dict[str, str]]:
                 level = f"Level {valid_line_count + 1}"
 
         problem_title = match.group("title").strip()
-        
-        # 제목 안에 남아있을 수 있는 난이도 태그([Easy] 등) 정제
+
+        # 제목 안에 남아있을 수 있는 난이도 태그([Easy], [Pro] 등) 정제
         problem_title = re.sub(
-            r"^\[(Easy|Normal|Hard|Level\s*\d+)\]\s*", 
-            "", 
-            problem_title, 
-            flags=re.IGNORECASE
+            r"^\[(Easy|Normal|Hard|Extreme|Pro|Level\s*\d+)\]\s*",
+            "",
+            problem_title,
+            flags=re.IGNORECASE,
         ).strip()
-        
+
         problem_url = match.group("url").strip()
 
-        links.append({
-            "level": level.capitalize(),
-            "title": problem_title,
-            "url": problem_url
-        })
-        
+        links.append(
+            {
+                "level": level.capitalize(),
+                "title": problem_title,
+                "url": problem_url,
+            }
+        )
+
         valid_line_count += 1
 
     if not links:
@@ -416,7 +418,7 @@ def build_code_template(
 
     if language == "c":
         return (
-            "#include <stdio.stdio.h>\n\n"
+            "#include <stdio.h>\n\n"
             "int main(void) {\n"
             "    return 0;\n"
             "}\n"
