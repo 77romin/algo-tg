@@ -1,48 +1,37 @@
 /*
 문제 정의
 
-초기에는 1번부터 n번까지의 원소가
-각각 서로 다른 집합에 속해 있습니다.
+전화번호부에 여러 전화번호가 저장되어 있습니다.
+어떤 전화번호가 다른 전화번호의 접두어인지 확인해야 합니다.
 
-두 가지 연산을 수행해야 합니다.
-
-0 a b
-: a가 속한 집합과 b가 속한 집합을 하나로 합칩니다.
-1 a b
-: a와 b가 같은 집합에 속해 있는지 확인합니다.
-
-같은 집합이라면 1, 다른 집합이라면 0을 출력하는 문제입니다.
+예를 들어
+119
+1195524421
+이 있다면 "119"는 "1195524421"의 접두어이므로 false를 반환합니다.
+어떤 전화번호도 다른 전화번호의 접두어가 아니라면 true를 반환합니다.
 */
 
 
 /*
 접근 방법
 
-집합을 합치고,
-두 원소가 같은 집합에 속하는지 빠르게 확인해야 합니다.
+전화번호를 문자열 기준으로 정렬합니다.
+예를 들어
+["1235", "567", "12", "123", "88"]을 정렬하면
+["12", "123", "1235", "567", "88"]이 됩니다.
 
-따라서 Union-Find(Disjoint Set) 자료구조를 사용합니다.
+정렬하면 접두어 관계가 있는 전화번호들은 서로 붙어서 나오게 됩니다.
 
-1. parent[i]
-  i번 원소의 부모를 저장합니다.
-  처음에는 모든 원소가 서로 다른 집합이므로
-  parent[i] = i로 초기화합니다.
+따라서 모든 전화번호를 서로 비교할 필요 없이
+현재 전화번호와 바로 다음 전화번호만 비교하면 됩니다.
 
-2. find(x)
-   x가 속한 집합의 대표 원소(root)를 찾습니다.
-   경로 압축(Path Compression)을 사용해서
-   한번 찾은 원소가 바로 대표 원소를 가리키도록 합니다.
+문자열의 startsWith() 메서드를 사용하면
+어떤 문자열이 특정 문자열로 시작하는지 확인할 수 있습니다.
 
-3. union(a, b)
-   a와 b의 대표 원소를 찾은 뒤,
-   서로 다른 집합이라면 하나로 합칩니다.
-   이때 size 배열을 이용하여
-   작은 집합을 큰 집합 아래에 연결합니다.
+phone_book[i + 1].startsWith(phone_book[i])가 true라면
+phone_book[i]가 phone_book[i + 1]의 접두어라는 뜻이므로 false를 반환합니다.
 
-4. 1 a b 연산에서는
-   find(a) == find(b)인지 확인합니다.
-
-   같다면 같은 집합이므로 1, 다르면 0을 출력
+끝까지 접두어 관계가 발견되지 않으면 true를 반환합니다.
 */
 
 
@@ -50,100 +39,36 @@
 문제 풀이
 */
 
-import java.io.*;
 import java.util.*;
 
-public class Solution {
-    static int[] parent;
-    static int[] size;
-
-    // x가 속한 집합의 대표 원소 찾기
-    static int find(int x) {
-        if (parent[x] == x) {
-            return x;
-        }
-        // 경로 압축
-        return parent[x] = find(parent[x]);
-    }
-
-    // 두 집합 합치기
-    static void union(int a, int b) {
-        int rootA = find(a);
-        int rootB = find(b);
-
-        // 이미 같은 집합
-        if (rootA == rootB) {
-            return;
-        }
-
-        // 작은 집합을 큰 집합에 연결
-        if (size[rootA] < size[rootB]) {
-            parent[rootA] = rootB;
-            size[rootB] += size[rootA];
-        } else {
-            parent[rootB] = rootA;
-            size[rootA] += size[rootB];
-        }
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int T = Integer.parseInt(br.readLine());
-      
-        for (int tc = 1; tc <= T; tc++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            int m = Integer.parseInt(st.nextToken());
-
-            parent = new int[n + 1];
-            size = new int[n + 1];
-
-            // 처음에는 모든 원소가 서로 다른 집합
-            for (int i = 1; i <= n; i++) {
-                parent[i] = i;
-                size[i] = 1;
+class Solution {
+    public boolean solution(String[] phone_book) {
+        // 전화번호를 문자열 기준으로 정렬
+        Arrays.sort(phone_book);
+        // 바로 옆의 전화번호만 비교
+        for (int i = 0; i < phone_book.length - 1; i++) {
+            // 다음 전화번호가 현재 전화번호로 시작한다면
+            // 현재 전화번호가 접두어
+            if (phone_book[i + 1].startsWith(phone_book[i])) {
+                return false;
             }
-
-            StringBuilder answer = new StringBuilder();
-            answer.append("#").append(tc).append(" ");
-
-            // m개의 연산 수행
-            for (int i = 0; i < m; i++) {
-                st = new StringTokenizer(br.readLine());
-                int command = Integer.parseInt(st.nextToken());
-                int a = Integer.parseInt(st.nextToken());
-                int b = Integer.parseInt(st.nextToken());
-
-                // 합집합 연산
-                if (command == 0) {
-                    union(a, b);
-                }
-                // 같은 집합인지 확인
-                else {
-                    if (find(a) == find(b)) {
-                        answer.append("1");
-                    } else {
-                        answer.append("0");
-                    }
-                }
-            }
-            System.out.println(answer);
         }
+        return true;
     }
 }
 
 
 /*
 시간복잡도
-n : 원소의 개수
-m : 연산의 개수
+N : 전화번호의 개수
+L : 전화번호 하나의 최대 길이
 
-Union-Find에서 find 연산은 경로 압축, union 연산은 size를 이용한 합치기를 사용합니다.
-이 경우 한 번의 연산은 거의 O(1)에 가깝고, 정확하게는 O(alpha(n)) 정도입니다.
-alpha(n)은 역 아커만 함수로, 실제 입력 범위에서는 거의 상수라고 생각할 수 있습니다.
+전화번호를 정렬하는 데 O(N log N)번의 비교가 필요합니다.
 
-m개의 연산을 수행하므로 전체 시간복잡도는 O(m * alpha(n)), 거의 O(m)입니다.
+문자열 하나의 길이는 최대 20이므로 O(N log N * L)
 
-초기 parent, size 배열을 만드는 데 O(n)이 필요하므로 전체적으로는 O(n + m * alpha(n))으로 볼 수 있습니다.
+정렬 후에는 N-1개의 전화번호 쌍을 확인하고,
+startsWith()에서 최대 L개의 문자를 비교합니다. -> O(N * L)
+
+따라서 전체 시간복잡도는 O(N log N * L), 거의 O(N log N)입니다.
 */
