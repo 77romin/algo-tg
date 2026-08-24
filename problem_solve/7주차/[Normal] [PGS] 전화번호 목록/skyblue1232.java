@@ -1,6 +1,6 @@
 import java.util.*;
 
-class Solution {
+class skyblue1232 {
 
     public boolean solution(String[] phoneBook) {
         Arrays.sort(phoneBook);
