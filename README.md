@@ -15,8 +15,8 @@
     <td><img src="https://img.shields.io/badge/Java-007396.svg?&style=for-the-badge&logo=openjdk&logoColor=white"></td>
   </tr>
   <tr>
-    <td>정기 모임 (아직 변동 가능)</td>
-    <td>매주 수요일 8시 or 화요일 18시</td>
+    <td>정기 모임</td>
+    <td>매주 화요일 18시</td>
   </tr>
 </table>
 
