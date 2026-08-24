@@ -1,37 +1,39 @@
 /*
-문제 정의
-
-전화번호부에 여러 전화번호가 저장되어 있습니다.
-어떤 전화번호가 다른 전화번호의 접두어인지 확인해야 합니다.
-
-예를 들어
-119
-1195524421
-이 있다면 "119"는 "1195524421"의 접두어이므로 false를 반환합니다.
-어떤 전화번호도 다른 전화번호의 접두어가 아니라면 true를 반환합니다.
-*/
-
-
-/*
 접근 방법
 
-전화번호를 문자열 기준으로 정렬합니다.
-예를 들어
-["1235", "567", "12", "123", "88"]을 정렬하면
-["12", "123", "1235", "567", "88"]이 됩니다.
+Trie 자료구조를 사용합니다.
+Trie는 문자열을 한 글자씩 트리 형태로 저장하는 자료구조입니다.
 
-정렬하면 접두어 관계가 있는 전화번호들은 서로 붙어서 나오게 됩니다.
+전화번호는 숫자 0~9로만 이루어져 있으므로
+각 노드는 최대 10개의 자식 노드를 가질 수 있습니다.
 
-따라서 모든 전화번호를 서로 비교할 필요 없이
-현재 전화번호와 바로 다음 전화번호만 비교하면 됩니다.
+각 노드에는
+1. 다음 숫자로 연결되는 child[10]
+2. 이 위치에서 전화번호가 끝나는지 나타내는 isEnd
 
-문자열의 startsWith() 메서드를 사용하면
-어떤 문자열이 특정 문자열로 시작하는지 확인할 수 있습니다.
+전화번호를 Trie에 하나씩 삽입하면서 접두어 관계를 확인합니다.
+삽입 중 다음 두 경우가 발생하면 접두어 관계가 존재합니다.
+1. 문자열을 삽입하는 도중
+   현재 노드의 isEnd가 true인 경우
+   예:
+   기존에 119가 저장되어 있고
+   119552를 삽입하는 경우
+   ->
+   119까지 내려왔을 때 이미 전화번호가 끝났으므로
+   119는 119552의 접두어입니다.
 
-phone_book[i + 1].startsWith(phone_book[i])가 true라면
-phone_book[i]가 phone_book[i + 1]의 접두어라는 뜻이므로 false를 반환합니다.
 
-끝까지 접두어 관계가 발견되지 않으면 true를 반환합니다.
+2. 새로운 전화번호를 모두 삽입했는데
+   현재 노드 아래에 자식이 존재하는 경우
+   예:
+   기존에 119552가 저장되어 있고
+   119를 나중에 삽입하는 경우
+   ->
+   119 위치 아래에 이미 다른 숫자가 연결되어 있으므로
+   새로 넣은 119가 기존 전화번호의 접두어입니다.
+
+따라서 전화번호를 하나씩 Trie에 삽입하면서
+위 두 경우를 확인하면 됩니다.
 */
 
 
@@ -39,21 +41,46 @@ phone_book[i]가 phone_book[i + 1]의 접두어라는 뜻이므로 false를 반�
 문제 풀이
 */
 
-import java.util.*;
-
 class Solution {
+    static class Node {
+        // 숫자 0~9
+        Node[] child = new Node[10];
+        // 이 위치에서 하나의 전화번호가 끝나는지
+        boolean isEnd;
+    }
     public boolean solution(String[] phone_book) {
-        // 전화번호를 문자열 기준으로 정렬
-        Arrays.sort(phone_book);
-        // 바로 옆의 전화번호만 비교
-        for (int i = 0; i < phone_book.length - 1; i++) {
-            // 다음 전화번호가 현재 전화번호로 시작한다면
-            // 현재 전화번호가 접두어
-            if (phone_book[i + 1].startsWith(phone_book[i])) {
-                return false;
+        Node root = new Node();
+
+        for (String phone : phone_book) {
+            Node current = root;
+
+            // 전화번호를 한 글자씩 Trie에 삽입
+            for (int i = 0; i < phone.length(); i++) {
+                // 기존 전화번호가 여기서 이미 끝났다면
+                // 기존 번호가 현재 번호의 접두어
+                if (current.isEnd) {
+                    return false;
+                }
+
+                int number = phone.charAt(i) - '0';
+                // 해당 숫자의 노드가 없다면 새로 생성
+                if (current.child[number] == null) {
+                    current.child[number] = new Node();
+                }
+                current = current.child[number];
+            }
+            // 현재 전화번호 입력이 끝남
+            current.isEnd = true;
+
+            // 현재 노드 아래에 자식이 있다면
+            // 현재 전화번호가 기존 전화번호의 접두어
+            for (int i = 0; i < 10; i++) {
+                if (current.child[i] != null) {
+                    return false;
+                }
             }
         }
-        return true;
+       return true;
     }
 }
 
@@ -63,12 +90,6 @@ class Solution {
 N : 전화번호의 개수
 L : 전화번호 하나의 최대 길이
 
-전화번호를 정렬하는 데 O(N log N)번의 비교가 필요합니다.
-
-문자열 하나의 길이는 최대 20이므로 O(N log N * L)
-
-정렬 후에는 N-1개의 전화번호 쌍을 확인하고,
-startsWith()에서 최대 L개의 문자를 비교합니다. -> O(N * L)
-
-따라서 전체 시간복잡도는 O(N log N * L), 거의 O(N log N)입니다.
+각 전화번호의 모든 문자를 한 번씩 Trie에 삽입합니다.
+따라서 시간복잡도는 O(N * L)
 */
