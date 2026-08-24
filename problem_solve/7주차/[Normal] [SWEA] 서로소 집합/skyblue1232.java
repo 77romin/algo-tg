@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Solution {
+public class skyblue1232 {
 
     private static int[] parent;
 
