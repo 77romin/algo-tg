@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 class Solution
 {
-    static int[] parent;
+    static int[] parent, rank;
 
     public static void main(String args[]) throws Exception
     {
@@ -24,7 +24,7 @@ class Solution
             int n = Integer.parseInt(st.nextToken());
             int m = Integer.parseInt(st.nextToken());
 
-            parent = init(n);
+            init(n);
 
             for (int i = 0; i < m; i++) {
                 st = new StringTokenizer(br.readLine());
@@ -39,12 +39,14 @@ class Solution
         System.out.println(sb.toString());
     }
 
-    public static int[] init(int n) {
-        int[] arr = new int[n + 1];
+    public static void init(int n) {
+        parent = new int[n + 1];
+        rank = new int[n + 1];
+
         for (int i = 1; i <= n; i++) {
-            arr[i] = i;
+            parent[i] = i;
+            rank[i] = 0;
         }
-        return arr;
     }
 
     public static void unionFind(int calc, int a, int b, StringBuilder sb) {
@@ -56,10 +58,21 @@ class Solution
     }
 
     public static void union(int a, int b) {
-        a = find(a);
-        b = find(b);
+        int rootA = find(a);
+        int rootB = find(b);
 
-        if (a != b) parent[b] = a;
+//        if (rootA != rootB) parent[b] = a;
+
+        if (rootA == rootB) return;
+
+        if (rank[rootA] < rank[rootB]) {
+            parent[rootA] = rootB;
+        } else if (rank[rootA] > rank[rootB]) {
+            parent[rootB] = rootA;
+        } else {
+            parent[rootB] = rootA;
+            rank[rootA]++;
+        }
     }
 
     public static int find(int num) {
@@ -68,4 +81,4 @@ class Solution
     }
 }
 
-// 최악 O(log n)의 시간복잡도를 가짐
+// 상수급의 시간 복잡도를 가짐(매우 빠르다)
