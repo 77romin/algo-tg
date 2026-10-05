@@ -18,31 +18,17 @@ class Solution {
         st = new StringTokenizer(br.readLine().trim());
         for(int i=0; i<N; i++)
             customer[i] = Integer.parseInt(st.nextToken());
+        Arrays.sort(customer); // 도착시간 오름차순 정렬
     }
     
     private static void sellFishBread() { // 붕어빵 제공
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int orderTime : customer)
-            pq.offer(orderTime);
-        
-        int curTime = 0;
-        int curStocks = 0;
-        while(!pq.isEmpty()) {
-            int curOrder = pq.poll();
-            if(curOrder>curTime) {
-                pq.offer(curOrder); // 다시 집어넣어. 아직 때가 아니거든
-                curTime++;
-                if(curTime%M==0) curStocks+=K; // M초마다 K개의 붕어빵 생산
-                continue;
-            }
-            
-            curStocks--; 
-            if(curStocks<0) {
+        for(int i=0; i<N; i++) {
+            int curStocks = (customer[i]/M)*K; // i+1번째 손님 왔을때의 붕어빵 보유 개수
+            if(curStocks < i+1) { // i+1개 이상 붕어빵이 없을 경우, 불가능한 것으로 판단
                 isPossible = false;
                 break;
             }
         }
-        
     }
     
 	public static void main(String args[]) throws Exception {
@@ -60,6 +46,6 @@ class Solution {
 }
 
 /**
- * 우선순위 큐를 사용하여 조건탐색
- * 시간복잡도: O(N);
+ * 알고리즘: Greedy
+ * 시간복잡도: O(NlogN + N) -- 정렬:O(NlogN), 순회: O(N)
  */
