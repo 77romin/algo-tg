@@ -2,64 +2,56 @@ import java.util.*;
 import java.io.*;
 
 class Solution {
-    
-	public static void main(String args[]) throws Exception {
-        StringBuilder sb = new StringBuilder();
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int T=Integer.parseInt(br.readLine());
+    public static void main(String args[]) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextInt()) return;
+        int T = sc.nextInt();
 
-		for(int test_case = 1; test_case <= T; test_case++) {
-            StringTokenizer st = new StringTokenizer(br.readLine().trim());
-            int n = Integer.parseInt(st.nextToken()); // n개의 노드
-            
-            List<Integer>[] nodes = new ArrayList[n]; // 각 노드에 연결된 노드들 저장
-            
-            for(int i=0; i<n; i++)
-                nodes[i] = new ArrayList<>();
-            
-            for(int i=0; i<n; i++)
-                for(int j=0; j<n; j++)
-                    if(Integer.parseInt(st.nextToken())==1)
-                        nodes[i].add(j);
-            
-            int minCnt = Integer.MAX_VALUE;
-            for(int i=0; i<n; i++) {
-                boolean[] visited = new boolean[n];
-                Queue<Integer> q = new LinkedList<>();
-                
-                // 시작노드 삽입
-                visited[i] = true;
-                q.add(i);
-                
-                int dist = 0; // 시작노드로부터의 거리
-                int sumCnt = 0; // 시작노드와 각 노드의 거리 합계
-                
-                while(!q.isEmpty()) { // BFS활용: 큐에 각 노드에서의 한단계 다음 노드들 확인
-                    int size = q.size();
-                    
-                    dist++; // 다음단계로 넘어가면 거리 증가
-                    
-                    for(int j=0; j<size; j++) {
-                        int curNode = q.poll();
-                        
-                        if(curNode!=i) 
-                            sumCnt += dist;
-                        
-                        for(int nextNode : nodes[curNode]) {
-                            if(visited[nextNode]) continue;
-                            visited[nextNode] = true;
-                            q.add(nextNode);
-                        }
-                        
+        StringBuilder sb = new StringBuilder();
+
+        for (int test_case = 1; test_case <= T; test_case++) {
+            int n = sc.nextInt();
+            int[][] dist = new int[n][n];
+            int INF = 1000000; // 충분히 큰 값 (무한대 대용)
+
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    int val = sc.nextInt();
+                    if (i == j) {
+                        dist[i][j] = 0;
+                    } else if (val == 1) {
+                        dist[i][j] = 1;
+                    } else {
+                        dist[i][j] = INF;
                     }
                 }
-                minCnt = Math.min(minCnt, sumCnt);
-                
             }
-            
+
+            // 플로이드-워샬 알고리즘 (모든 노드 간 최단 거리)
+            for (int k = 0; k < n; k++) {
+                for (int i = 0; i < n; i++) {
+                    for (int j = 0; j < n; j++) {
+                        if (dist[i][j] > dist[i][k] + dist[k][j]) {
+                            dist[i][j] = dist[i][k] + dist[k][j];
+                        }
+                    }
+                }
+            }
+
+            int minCnt = Integer.MAX_VALUE;
+
+            // 각 노드별 CC(i) = 다른 모든 노드까지의 거리 합 계산
+            for (int i = 0; i < n; i++) {
+                int sumCnt = 0;
+                for (int j = 0; j < n; j++) {
+                    sumCnt += dist[i][j];
+                }
+                minCnt = Math.min(minCnt, sumCnt);
+            }
+
             sb.append("#").append(test_case).append(" ").append(minCnt).append("\n");
-		}
-        System.out.println(sb);
-        br.close();
-	}
+        }
+        System.out.print(sb);
+        sc.close();
+    }
 }
