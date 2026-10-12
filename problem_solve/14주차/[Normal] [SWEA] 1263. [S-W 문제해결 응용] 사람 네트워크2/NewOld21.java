@@ -1,30 +1,24 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.Buffer;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.io.*;
+import java.util.*;
+
 
 class Solution
 {
     static int N;
     static List<List<Integer>> graph;  // 인접리스트
-    static int[][] cnt;
+
 	public static void main(String args[]) throws Exception
 	{
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int T = Integer.parseInt(br.readLine());
-        
-
 
 		for(int test_case = 1; test_case <= T; test_case++)
 		{
             StringTokenizer st = new StringTokenizer(br.readLine());
 
             graph = new ArrayList<>();
-            int N = Integer.parseInt(st.nextToken());
-            cnt = new int[N][N];
+            N = Integer.parseInt(st.nextToken());
 
             for(int i=0; i<N; i++){
                 graph.add(new ArrayList<>());
@@ -39,27 +33,26 @@ class Solution
             int ans = Integer.MAX_VALUE;
 
             for(int i=0; i<N; i++){
-                PriorityQueue<Node> pq = new PriorityQueue<>((n1,n2) -> Integer.compare(n1.move, n2.move));
-                cnt[i][i] = -1;
-                pq.add(new Node(i, 0));
+                Queue<Node> q = new ArrayDeque<>();
+                boolean[] visited = new boolean[N];
 
-                while (!pq.isEmpty()) {
-                    Node node = pq.poll();
-                    if(i!=node.cur && cnt[i][node.cur]==0)
-                        cnt[i][node.cur] = node.move;
-                        cnt[node.cur][i] = node.move;
+                q.add(new Node(i, 0));
+                visited[i] = true;
 
-                    for(int n : graph.get(node.cur)){
-                        if(cnt[i][n]==0){
-                            pq.add(new Node(n, node.move+1));
+                int sum = 0;
+
+                while (!q.isEmpty()) {
+                    Node node = q.poll();
+
+                    sum += node.move;
+
+                    for (int next : graph.get(node.cur)) {
+                        if (!visited[next]) {
+                            visited[next] = true;
+                            q.add(new Node(next, node.move + 1));
                         }
                     }
                 }
-                int sum = 1;
-                for(int j=0; j<N; j++){
-                    sum += cnt[i][j];
-                }
-
                 ans = Math.min(ans, sum);
             }
 
