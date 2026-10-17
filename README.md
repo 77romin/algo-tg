@@ -54,9 +54,9 @@
 ### 📝💯 15주차 문제
 <!-- 문제 바꾸면서 꼭!!!!!!!!! 몇 주차인지 수정하기!!!!!!!!!! -->
 <!-- 이 제목과 문제 링크를 수정해 `main` 브랜치에 push하면 `problem_solve/` 하위에 폴더 자동 생성 -->
-[Normal] [불량사용자](https://school.programmers.co.kr/learn/courses/30/lessons/64064) 
-[Normal] [징검다리 건너기](https://school.programmers.co.kr/learn/courses/30/lessons/64062)    
-[Hard] [등산코스 정하기](https://school.programmers.co.kr/learn/courses/30/lessons/118669)
+[Normal] [불량사용자](https://school.programmers.co.kr/learn/courses/30/lessons/64064)   
+[Normal] [징검다리 건너기](https://school.programmers.co.kr/learn/courses/30/lessons/64062)     
+[Hard] [등산코스 정하기](https://school.programmers.co.kr/learn/courses/30/lessons/118669)    
 
 <br />
 
