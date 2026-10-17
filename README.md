@@ -51,22 +51,13 @@
 
 <!-- 이 부분을 업데이트하면 자동으로 파일이 생성됩니다. -->
 <!-- provlem_solve/{일자}/{스터디멤버 깃헙 id} 형태로 생성됩니다.  -->
-### 📝💯 14주차 문제
+### 📝💯 15주차 문제
 <!-- 문제 바꾸면서 꼭!!!!!!!!! 몇 주차인지 수정하기!!!!!!!!!! -->
-
 <!-- 이 제목과 문제 링크를 수정해 `main` 브랜치에 push하면 `problem_solve/` 하위에 폴더 자동 생성 -->
+[Normal] [불량사용자](https://school.programmers.co.kr/learn/courses/30/lessons/64064) 
+[Normal] [징검다리 건너기](https://school.programmers.co.kr/learn/courses/30/lessons/64062)    
+[Hard] [등산코스 정하기](https://school.programmers.co.kr/learn/courses/30/lessons/118669)
 
-[Normal] [1263. [S/W 문제해결 응용] 사람 네트워크2](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV18P2B6Iu8CFAZN)    
-[Normal] [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)     
-[Hard] [표 편집](https://school.programmers.co.kr/learn/courses/30/lessons/81303)    
-
-
-<!-- 문제 바꾸면서 꼭!!!!!!!!! 몇 주차인지 수정하기!!!!!!!!!! -->
-<br />
-
-### 🗣️ 14주차 발표자
-<a href="https://github.com/NewOld21"><b>김세헌</b></a>    
-<a href="https://github.com/77romin"><b>김강민</b></a>    
 <br />
 
 ### 🤝 Rule  
