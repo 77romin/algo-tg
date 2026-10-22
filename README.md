@@ -51,13 +51,19 @@
 
 <!-- 이 부분을 업데이트하면 자동으로 파일이 생성됩니다. -->
 <!-- provlem_solve/{일자}/{스터디멤버 깃헙 id} 형태로 생성됩니다.  -->
-### 📝💯 15주차 문제
+
 <!-- 문제 바꾸면서 꼭!!!!!!!!! 몇 주차인지 수정하기!!!!!!!!!! -->
 <!-- 이 제목과 문제 링크를 수정해 `main` 브랜치에 push하면 `problem_solve/` 하위에 폴더 자동 생성 -->
-[Normal] [불량사용자](https://school.programmers.co.kr/learn/courses/30/lessons/64064)   
-[Normal] [징검다리 건너기](https://school.programmers.co.kr/learn/courses/30/lessons/64062)     
-[Hard] [등산코스 정하기](https://school.programmers.co.kr/learn/courses/30/lessons/118669)    
 
+### 📝💯 16주차 문제
+
+[Normal] [1949. [모의 SW 역량테스트] 등산로 조성](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PoOKKAPIDFAUq)     
+[Normal] [5250. [S/W 문제해결 구현] 7일차 - 최소 비용](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWUS4nyaIycDFAVT)    
+[Hard] [1953. [모의 SW 역량테스트] 탈주범 검거](https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PpLlKAQ4DFAUq)  
+<br />
+
+### 🗣️ 발표자
+안서현, 고민균
 <br />
 
 ### 🤝 Rule  
